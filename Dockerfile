@@ -66,7 +66,7 @@ ADD var/www/html/index.php /var/www/html/index.php
 EXPOSE 80 443
 
 # Let supervisord start nginx & php-fpm
-CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+#CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 # # Prevent exit
 ENTRYPOINT ["sh", "./entrypoint.sh"]
