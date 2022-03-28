@@ -4,14 +4,15 @@ FROM ubuntu:20.04
 LABEL Maintainer="Wutthisak <wutthisak.ip@gmail.com>" \
       Description="Nginx + PHP7.4-FPM Based on Ubuntu 20.04."
 
+ARG TIMEZONE="Asia/Bangkok"
+ENV TZ=Asia/Bangkok
 
 # Setup document root
 RUN mkdir -p /var/www/html
 
 # Base install
 RUN apt update --fix-missing
-RUN  DEBIAN_FRONTEND=noninteractive
-RUN ln -snf /usr/share/zoneinfo/Asia/Bangkok /etc/localtime && echo Asia/Bangkok > /etc/timezone
+RUN DEBIAN_FRONTEND=noninteractive
 RUN apt install nano curl gnupg2 ca-certificates lsb-release libicu-dev supervisor nginx -y
 
 # Install php7.4-fpm
@@ -61,7 +62,7 @@ ADD supervisor/config.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Starter file
 ADD var/www/html/index.php /var/www/html/index.php
-
+RUN cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 
 EXPOSE 80 443
 
