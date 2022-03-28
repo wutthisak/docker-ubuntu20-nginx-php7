@@ -2,21 +2,17 @@ version: '3.8'
 services:
   apache:
     container_name: webserver
-    image: ubuntu20-nginx-php7:latest
-    #image: ubuntu16-nginx-php7:v1
+    image: mooping/ubuntu20-nginx-php7:latest
     networks:
             dbnet:
              ipv4_address: "192.168.10.11"
     ports:
       - 80:80
-      #- 9443:443
     volumes:
       - ./var/www/html:/var/www/html
-      #- ./config/php/php.ini:/etc/php/7.0/fpm/php.ini
-     #  - ./etc/php/7.0/apache2/php.ini:/etc/php/7.0/apache2/php.ini
-    #links:
-    #  - db-mariadb
-# docker network create --driver=bridge --subnet=192.168.10.0/24 dbnet
+      - .php/php.ini:/etc/php/7.4/fpm/php.ini
+    
+  # docker network create --driver=bridge --subnet=192.168.10.0/24 dbnet
 networks:
   dbnet:
    external: true  
